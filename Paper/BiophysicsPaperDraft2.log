@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  11 APR 2024 16:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  11 APR 2024 16:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -300,31 +300,31 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks25
 \@floatcapt=\box44
 )
-Class revtex4-1 Info: Patching array package. on input line 44.
+Class revtex4-1 Info: Patching array package. on input line 45.
 
 
 Class revtex4-1 Warning: Repair the float package.
 
-Class revtex4-1 Info: Robustifying \LaTeX's \boldmath command on input line 44.
+Class revtex4-1 Info: Robustifying \LaTeX's \boldmath command on input line 45.
 
-Class revtex4-1 Info: cite was not loaded (OK!) on input line 44.
-Class revtex4-1 Info: mcite was not loaded (OK!) on input line 44.
-Class revtex4-1 Info: multicol was not loaded (OK!) on input line 44.
+Class revtex4-1 Info: cite was not loaded (OK!) on input line 45.
+Class revtex4-1 Info: mcite was not loaded (OK!) on input line 45.
+Class revtex4-1 Info: multicol was not loaded (OK!) on input line 45.
 (./BiophysicsPaperDraft2.aux)
 \openout1 = `BiophysicsPaperDraft2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
 
 (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -391,12 +391,12 @@ Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \openout3 = `BiophysicsPaperDraft2Notes.bib'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 64.
+LaTeX Font Info:    Try loading font information for U+msa on input line 65.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 64.
+LaTeX Font Info:    Try loading font information for U+msb on input line 65.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -405,158 +405,315 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 Class revtex4-1 Warning: Assuming \noaffiliation for authors.
 
 
-Underfull \hbox (badness 1107) in paragraph at lines 98--100
+Package natbib Warning: Citation `ref:HHoriginal' on page 1 undefined on input 
+line 76.
+
+
+Package natbib Warning: Citation `ref:BrainAndMind' on page 1 undefined on inpu
+t line 76.
+
+
+Package natbib Warning: Citation `ref:HHstanding' on page 1 undefined on input 
+line 95.
+
+
+Package natbib Warning: Citation `ref:HHthermo' on page 1 undefined on input li
+ne 95.
+
+
+Package natbib Warning: Citation `ref:FluidDynamics' on page 1 undefined on inp
+ut line 95.
+
+
+Package natbib Warning: Citation `ref:FitzHugh' on page 1 undefined on input li
+ne 97.
+
+
+Package natbib Warning: Citation `ref:FitzHugh' on page 1 undefined on input li
+ne 99.
+
+
+Package natbib Warning: Citation `ref:Nagumo' on page 1 undefined on input line
+ 99.
+
+
+Underfull \hbox (badness 1107) in paragraph at lines 99--101
 []\OT1/cmr/m/n/10 The FitzHugh-Nagumo Model was cre-ated by R.
  []
 
+
+Package natbib Warning: Citation `ref:FitzHugh' on page 1 undefined on input li
+ne 110.
+
+
+Package natbib Warning: Citation `ref:FitzHugh2' on page 1 undefined on input l
+ine 117.
+
+
+Package natbib Warning: Citation `ref:MLbifurcations' on page 1 undefined on in
+put line 117.
+
+
+Package natbib Warning: Citation `ref:MLphaseportraits' on page 1 undefined on 
+input line 117.
+
+
+Package natbib Warning: Citation `ref:EulerMaruyama' on page 1 undefined on inp
+ut line 123.
+
 [1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (3.04593pt too wide) detected at line 171
+
+Package natbib Warning: Citation `ref:FitzHugh' on page 2 undefined on input li
+ne 154.
+
+
+Package natbib Warning: Citation `ref:Strogatz' on page 2 undefined on input li
+ne 156.
+
+
+Overfull \hbox (3.04593pt too wide) detected at line 172
 []\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 a \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 v\O
 T1/cmr/m/n/10 ) = [] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 v \OT1/cmr/m/n/10 + 
 \OML/cmm/m/it/10 I  \OT1/cmr/m/n/10 =[]\OMS/cmsy/m/n/10 )  [] \OT1/cmr/m/n/10 +
  [] \OML/cmm/m/it/10 v \OT1/cmr/m/n/10 + [] = 0
  []
 
-[2] <PhaseWithTraj2.png, id=21, 446.66875pt x 262.9825pt>
-File: PhaseWithTraj2.png Graphic file (type png)
 
-<use PhaseWithTraj2.png>
-Package pdftex.def Info: PhaseWithTraj2.png used on input line 237.
+Package natbib Warning: Citation `ref:Strogatz' on page 2 undefined on input li
+ne 174.
+
+[2] <../figures/PhaseWithTraj2.png, id=22, 446.66875pt x 262.9825pt>
+File: ../figures/PhaseWithTraj2.png Graphic file (type png)
+
+<use ../figures/PhaseWithTraj2.png>
+Package pdftex.def Info: ../figures/PhaseWithTraj2.png used on input line 238.
 (pdftex.def)             Requested size: 245.66856pt x 144.64081pt.
- <TrajForPhase2.png, id=23, 440.64626pt x 262.9825pt>
-File: TrajForPhase2.png Graphic file (type png)
 
-<use TrajForPhase2.png>
-Package pdftex.def Info: TrajForPhase2.png used on input line 241.
+<../figures/TrajForPhase2.png, id=24, 440.64626pt x 262.9825pt>
+File: ../figures/TrajForPhase2.png Graphic file (type png)
+
+<use ../figures/TrajForPhase2.png>
+Package pdftex.def Info: ../figures/TrajForPhase2.png used on input line 242.
 (pdftex.def)             Requested size: 242.35619pt x 144.64081pt.
- <FitzHughPhase.png, id=24, 794.97pt x 444.66125pt>
-File: FitzHughPhase.png Graphic file (type png)
 
-<use FitzHughPhase.png>
-Package pdftex.def Info: FitzHughPhase.png used on input line 245.
+<../figures/FitzHughPhase.png, id=25, 794.97pt x 444.66125pt>
+File: ../figures/FitzHughPhase.png Graphic file (type png)
+
+<use ../figures/FitzHughPhase.png>
+Package pdftex.def Info: ../figures/FitzHughPhase.png used on input line 246.
 (pdftex.def)             Requested size: 246.0pt x 137.59929pt.
- <FitzHughTraj.png, id=25, 648.4225pt x 399.4925pt>
-File: FitzHughTraj.png Graphic file (type png)
 
-<use FitzHughTraj.png>
-Package pdftex.def Info: FitzHughTraj.png used on input line 249.
+
+Package natbib Warning: Citation `ref:FitzHugh' on page 3 undefined on input li
+ne 247.
+
+
+Package natbib Warning: Citation `ref:FitzHugh' on page 3 undefined on input li
+ne 247.
+
+<../figures/FitzHughTraj.png, id=26, 648.4225pt x 399.4925pt>
+File: ../figures/FitzHughTraj.png Graphic file (type png)
+
+<use ../figures/FitzHughTraj.png>
+Package pdftex.def Info: ../figures/FitzHughTraj.png used on input line 250.
 (pdftex.def)             Requested size: 246.0pt x 151.55879pt.
 
-<ReplicatingFitzHugh1fix.png, id=26, 483.8075pt x 425.59pt>
-File: ReplicatingFitzHugh1fix.png Graphic file (type png)
 
-<use ReplicatingFitzHugh1fix.png>
-Package pdftex.def Info: ReplicatingFitzHugh1fix.png used on input line 298.
+Package natbib Warning: Citation `ref:FitzHugh' on page 3 undefined on input li
+ne 251.
+
+
+Package natbib Warning: Citation `ref:FitzHugh' on page 3 undefined on input li
+ne 251.
+
+
+Package natbib Warning: Citation `ref:noise' on page 3 undefined on input line 
+265.
+
+
+Package natbib Warning: Citation `ref:EulerMaruyama' on page 3 undefined on inp
+ut line 281.
+
+
+Package natbib Warning: Citation `ref:TheoreticalNeuroscience' on page 3 undefi
+ned on input line 296.
+
+
+Package natbib Warning: Citation `ref:FitzHugh' on page 3 undefined on input li
+ne 296.
+
+<../figures/ReplicatingFitzHugh1fix.png, id=27, 483.8075pt x 425.59pt>
+File: ../figures/ReplicatingFitzHugh1fix.png Graphic file (type png)
+
+<use ../figures/ReplicatingFitzHugh1fix.png>
+Package pdftex.def Info: ../figures/ReplicatingFitzHugh1fix.png used on input l
+ine 299.
 (pdftex.def)             Requested size: 241.90315pt x 212.79446pt.
- [3]
-<ModifiedBlankPhase2.png, id=30, 446.66875pt x 262.9825pt>
-File: ModifiedBlankPhase2.png Graphic file (type png)
 
-<use ModifiedBlankPhase2.png>
-Package pdftex.def Info: ModifiedBlankPhase2.png used on input line 332.
+
+Package natbib Warning: Citation `ref:FitzHugh' on page 3 undefined on input li
+ne 303.
+
+[3] <../figures/ModifiedBlankPhase2.png, id=31, 446.66875pt x 262.9825pt>
+File: ../figures/ModifiedBlankPhase2.png Graphic file (type png)
+
+<use ../figures/ModifiedBlankPhase2.png>
+Package pdftex.def Info: ../figures/ModifiedBlankPhase2.png used on input line 
+333.
 (pdftex.def)             Requested size: 223.33382pt x 131.49092pt.
 
-<FixedDiffCurrents2.png, id=31, 483.8075pt x 281.05pt>
-File: FixedDiffCurrents2.png Graphic file (type png)
+<../figures/FixedDiffCurrents2.png, id=32, 483.8075pt x 281.05pt>
+File: ../figures/FixedDiffCurrents2.png Graphic file (type png)
 
-<use FixedDiffCurrents2.png>
-Package pdftex.def Info: FixedDiffCurrents2.png used on input line 338.
+<use ../figures/FixedDiffCurrents2.png>
+Package pdftex.def Info: ../figures/FixedDiffCurrents2.png used on input line 3
+39.
 (pdftex.def)             Requested size: 241.90315pt x 140.52464pt.
 
-<fixedDiffCurrentPhase2.png, id=32, 489.83pt x 208.78pt>
-File: fixedDiffCurrentPhase2.png Graphic file (type png)
+<../figures/fixedDiffCurrentPhase2.png, id=33, 489.83pt x 208.78pt>
+File: ../figures/fixedDiffCurrentPhase2.png Graphic file (type png)
 
-<use fixedDiffCurrentPhase2.png>
-Package pdftex.def Info: fixedDiffCurrentPhase2.png used on input line 342.
+<use ../figures/fixedDiffCurrentPhase2.png>
+Package pdftex.def Info: ../figures/fixedDiffCurrentPhase2.png used on input li
+ne 343.
 (pdftex.def)             Requested size: 244.9144pt x 104.38972pt.
 
-<bifurcationFixed2.png, id=33, 440.64626pt x 318.18875pt>
-File: bifurcationFixed2.png Graphic file (type png)
+<../figures/bifurcationFixed2.png, id=34, 440.64626pt x 318.18875pt>
+File: ../figures/bifurcationFixed2.png Graphic file (type png)
 
-<use bifurcationFixed2.png>
-Package pdftex.def Info: bifurcationFixed2.png used on input line 353.
+<use ../figures/bifurcationFixed2.png>
+Package pdftex.def Info: ../figures/bifurcationFixed2.png used on input line 35
+4.
 (pdftex.def)             Requested size: 220.32259pt x 159.09398pt.
 
-<fringevoltages2.png, id=34, 483.8075pt x 136.51pt>
-File: fringevoltages2.png Graphic file (type png)
- <use fringevoltages2.png>
-Package pdftex.def Info: fringevoltages2.png used on input line 360.
+<../figures/fringevoltages2.png, id=35, 483.8075pt x 136.51pt>
+File: ../figures/fringevoltages2.png Graphic file (type png)
+
+<use ../figures/fringevoltages2.png>
+Package pdftex.def Info: ../figures/fringevoltages2.png used on input line 361.
+
 (pdftex.def)             Requested size: 241.90315pt x 68.25482pt.
 
-<fringephases2.png, id=35, 492.84125pt x 208.78pt>
-File: fringephases2.png Graphic file (type png)
- <use fringephases2.png>
-Package pdftex.def Info: fringephases2.png used on input line 365.
+<../figures/fringephases2.png, id=36, 492.84125pt x 208.78pt>
+File: ../figures/fringephases2.png Graphic file (type png)
+
+<use ../figures/fringephases2.png>
+Package pdftex.def Info: ../figures/fringephases2.png used on input line 366.
 (pdftex.def)             Requested size: 246.42001pt x 104.38972pt.
 
-[4 <./PhaseWithTraj2.png> <./TrajForPhase2.png> <./FitzHughPhase.png> <./FitzHu
-ghTraj.png>]
+
+Package natbib Warning: Citation `ref:AllorNone' on page 4 undefined on input l
+ine 377.
+
+[4 <../figures/PhaseWithTraj2.png> <../figures/TrajForPhase2.png> <../figures/F
+itzHughPhase.png> <../figures/FitzHughTraj.png>]
 
 LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix]
- on input line 377.
+ on input line 378.
 
-[5 <./ReplicatingFitzHugh1fix.png> <./ModifiedBlankPhase2.png> <./FixedDiffCurr
-ents2.png> <./fixedDiffCurrentPhase2.png>] [6 <./bifurcationFixed2.png> <./frin
-gevoltages2.png> <./fringephases2.png>]
-<noisyresults.png, id=57, 483.8075pt x 353.32pt>
-File: noisyresults.png Graphic file (type png)
- <use noisyresults.png>
-Package pdftex.def Info: noisyresults.png used on input line 416.
+
+Package natbib Warning: Citation `ref:TheoreticalNeuroscience' on page 5 undefi
+ned on input line 383.
+
+
+Package natbib Warning: Citation `ref:AllorNone' on page 5 undefined on input l
+ine 383.
+
+[5 <../figures/ReplicatingFitzHugh1fix.png> <../figures/ModifiedBlankPhase2.png
+> <../figures/FixedDiffCurrents2.png> <../figures/fixedDiffCurrentPhase2.png>]
+
+Package natbib Warning: Citation `ref:TheoreticalNeuroscience' on page 6 undefi
+ned on input line 392.
+
+
+Package natbib Warning: Citation `ref:noise' on page 6 undefined on input line 
+410.
+
+[6 <../figures/bifurcationFixed2.png> <../figures/fringevoltages2.png> <../figu
+res/fringephases2.png>]
+<../figures/noisyresults.png, id=58, 483.8075pt x 353.32pt>
+File: ../figures/noisyresults.png Graphic file (type png)
+
+<use ../figures/noisyresults.png>
+Package pdftex.def Info: ../figures/noisyresults.png used on input line 417.
 (pdftex.def)             Requested size: 246.0pt x 179.65169pt.
 
-<misfirevfixed.png, id=58, 138.5175pt x 353.32pt>
-File: misfirevfixed.png Graphic file (type png)
- <use misfirevfixed.png>
-Package pdftex.def Info: misfirevfixed.png used on input line 423.
+<../figures/misfirevfixed.png, id=59, 138.5175pt x 353.32pt>
+File: ../figures/misfirevfixed.png Graphic file (type png)
+
+<use ../figures/misfirevfixed.png>
+Package pdftex.def Info: ../figures/misfirevfixed.png used on input line 424.
 (pdftex.def)             Requested size: 69.25858pt x 176.65956pt.
 
-Overfull \hbox (7.75858pt too wide) in paragraph at lines 423--425
+Overfull \hbox (7.75858pt too wide) in paragraph at lines 424--426
  [][] 
  []
 
-<misfiresvert.png, id=59, 320.19624pt x 318.18875pt>
-File: misfiresvert.png Graphic file (type png)
- <use misfiresvert.png>
-Package pdftex.def Info: misfiresvert.png used on input line 429.
+<../figures/misfiresvert.png, id=60, 320.19624pt x 318.18875pt>
+File: ../figures/misfiresvert.png Graphic file (type png)
+
+<use ../figures/misfiresvert.png>
+Package pdftex.def Info: ../figures/misfiresvert.png used on input line 430.
 (pdftex.def)             Requested size: 160.09772pt x 159.09398pt.
 
-Overfull \hbox (12.49622pt too wide) in paragraph at lines 429--431
+Overfull \hbox (12.49622pt too wide) in paragraph at lines 430--432
  [][] 
  []
 
-[7 <./noisyresults.png> <./misfirevfixed.png> <./misfiresvert.png>]
-Underfull \hbox (badness 2521) in paragraph at lines 477--478
+[7 <../figures/noisyresults.png> <../figures/misfirevfixed.png> <../figures/mis
+firesvert.png>]
+
+LaTeX Warning: Reference `LastBibItem' on page 8 undefined on input line 448.
+
+
+Underfull \hbox (badness 2253) in paragraph at lines 478--479
  []\OT1/cmr/m/n/9 Xuerong M. 2015. The trun-cated Euler-Maruyama
  []
 
 No file BiophysicsPaperDraft2.bbl.
-[8] (./BiophysicsPaperDraft2.aux) ) 
+
+Package natbib Warning: There were undefined citations.
+
+[8] (./BiophysicsPaperDraft2.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right .
+
+
+ ) 
 Here is how much of TeX's memory you used:
- 6154 strings out of 493014
- 88433 string characters out of 6133351
- 275660 words of memory out of 5000000
+ 6141 strings out of 493014
+ 88732 string characters out of 6133351
+ 275147 words of memory out of 5000000
  9569 multiletter control sequences out of 15000+600000
  13994 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,16n,43p,2360b,585s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2016/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2016/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy9.pfb>
-Output written on BiophysicsPaperDraft2.pdf (8 pages, 642345 bytes).
+ 42i,16n,41p,2360b,585s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
+usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
+sr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
+r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/
+local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/lo
+cal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
+l/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/t
+exlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texl
+ive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
+ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive
+/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2
+016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
+Output written on BiophysicsPaperDraft2.pdf (8 pages, 651752 bytes).
 PDF statistics:
- 112 PDF objects out of 1000 (max. 8388607)
- 60 compressed objects within 1 object stream
+ 116 PDF objects out of 1000 (max. 8388607)
+ 63 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  71 words of extra memory for PDF output out of 10000 (max. 10000000)
 
