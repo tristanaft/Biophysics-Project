@@ -1,0 +1,488 @@
+% ****** Start of file RevTeX.tex ******
+%
+%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%   Version 4.1r of REVTeX, August 2010
+%
+%   Copyright (c) 2009, 2010 The American Physical Society.
+%
+%   See the REVTeX 4 README file for restrictions and more information.
+%
+% TeX'ing this file requires that you have AMS-LaTeX 2.0 installed
+% as well as the rest of the prerequisites for REVTeX 4.1
+%
+% See the REVTeX 4 README file
+% It also requires runningBibTeX. The commands are as follows:
+%
+%  1)  latex apssamp.tex
+%  2)  bibtex apssamp
+%  3)  latex apssamp.tex
+%  4)  latex apssamp.tex
+%
+\documentclass[reprint, amsmath, amssymb, aps]{revtex4-1}
+
+
+\usepackage{lipsum}
+\usepackage{mwe}
+
+\usepackage{graphicx}% Include figure files
+\usepackage{subcaption}
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{float}
+%\usepackage{hyperref}% add hypertext capabilities
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+
+%\usepackage[showframe,%Uncomment any one of the following lines to test 
+%%scale=0.7, marginratio={1:1, 2:3}, ignoreall,% default settings
+%%text={7in,10in},centering,
+%%margin=1.5in,
+%%total={6.5in,8.75in}, top=1.2in, left=0.9in, includefoot,
+%%height=10in,a5paper,hmargin={3cm,0.8in},
+%]{geometry}
+
+\begin{document}
+
+%\preprint{APS/123-QED}
+
+\title{Analysis of the FitzHugh-Nagumo Model of Neurons}% Force line breaks with \\
+
+
+\author{Tristan Aft}
+
+
+% \email{Second.Author@institution.edu}
+%\affiliation{Physics and Astronomy Department, College of Charleston}
+
+%\author{Advisor:  Sorinel Oprisan}%
+
+%\date{\today}% It is always \today, today,
+             %  but any date may be explicitly specified
+
+\begin{abstract}
+
+There are many mathematical models of the oscillatory behavior of neurons. The FitzHugh-Nagumo model offers a relatively simple system which allows us to analyze the basic mathematical properties of neural activity. In this paper, we perform mathematical analysis of the FitzHugh-Nagumo model. We discretized the equations and implemented the model into Python. We show that  the original equations yield inaccurate results for $v(t)$. We then derive modified equations that give the desired results. Then, the stability of these new equations is evaluated. To add additional biological realism, we add Gaussian white noise to the modified equations, and quantify how the noise impacts the results for $v(t)$.
+\end{abstract}
+
+
+
+\maketitle
+
+
+
+\section{\label{sec:intro}Introduction}
+
+The pioneers of mathematical neuroscience were Alan Hodgkin and Andrew Huxley, who introduced their model of neural dynamics in 1952\cite{ref:HHoriginal}. Their model was based on their work on giant squid axons. The creation of this model could be considered to be when neuroscience became a more independent entity from biology and psychology \cite{ref:BrainAndMind}. The model is composed mainly of four equations:
+
+\begin{multline}
+    I = C_m \frac{dV_m}{dt} + \bar{g}_K n^4 (V_m-V_k) + \bar{g}_{Na}m^3h(V_m-V_{Na}) \\
+   + \bar{g}_l(V_m-V_l)
+\end{multline}
+
+\begin{equation}
+\frac{dn}{dt} = \alpha_n (V_m)(1-n) - \beta_n (V_m) n
+\end{equation}
+
+\begin{equation}
+\frac{dm}{dt} = \alpha_m (V_m)(1-m) - \beta_m (V_m) m
+\end{equation}
+
+\begin{equation}
+\frac{dh}{dt} = \alpha_h (V_m)(1-h) - \beta_h (V_m) h
+\end{equation}
+
+$V_m$ is the membrane potential, $n$, $m$ and $h$ are variables associated with the 3 types of ion gates, with $\alpha$ and $\beta$ functions corresponding to the opening and closing probabilities of each. The parameters are the injected current I and membrane conductances for each kind of protein channel, $\bar{g}_k,~\bar{g}_{Na},~\bar{g}_l$. When $V_m$ is plotted over time for different choices of the initial voltage and applied current, we observe the expected neural behavior. $V_m$ shows clear action potentials and spiking that matches experimental results. The model was a major advancement in the field of neuroscience, though it has fallen out of favor over time in favor of simpler models\cite{ref:HHstanding}. The model has also served as a starting point for some models that add even more complexity \cite{ref:HHthermo, ref:FluidDynamics}.
+
+However, the model is a set of 4 coupled differential equations, so performing analysis of these equations or numerically solving them can prove difficult. The phase space defined by these equations is 4 dimensional, and if we want to plot $V_m (t)$ versus the potassium gating variable $n(t)$, 2 variables must be held constant which may give misleading results. If we wanted to implement these equations into a program with a network of 100 coupled Hodgkin Huxley neurons, it would require a fair amount of computing power to solve all of the coupled differential equations. These two motivations lead us towards a more simplified model, that is the FitzHugh-Nagumo Model \cite{ref:FitzHugh}.
+
+The FitzHugh-Nagumo Model was created by R. FitzHugh in 1961\cite{ref:FitzHugh}. J. Nagumo created an identical circuit for the model in 1962\cite{ref:Nagumo}. The model represents a general class of oscillators that the Hodgkin-Huxley model is a member of. 
+Since the model is a more generalized case, the aim was to completely characterize the simplified system in the hope that it could either be extended to more complex systems like the Hodgkin-Huxley model, or be used to construct new models. The FitzHugh-Nagumo model itself is a set of two coupled ordinary differential equations:
+
+\begin{equation}
+\dot{v}=c \left(  v - \frac{v^3}{3} + w - I    \right)
+\end{equation}
+\begin{equation}
+\tau \dot{w}=-\frac{1}{c}\left(v - a + bw \right)
+\end{equation}
+%should I include stuff about like... equivalent circuits??? to contrast with the equivalent circuit for H-H model.
+
+where $v(t)$ represents the voltage as a function of time, $w(t)$ represents a dampening parameter and I is the applied current to the cell\cite{ref:FitzHugh}. The other unknowns, $a,~b,~c$ are all free parameters. There are 3 conditions placed on these parameters to guarantee only one fixed point.
+
+\begin{equation}
+1-2b/3 < a < 1,~~~0<b<1,~~~b<c^2
+\end{equation}
+
+
+In the original paper for this model, these values are set to $a=0.7,~b=0.8,~c=3$. These parameters can be changed to alter the behavior of the system, but for our current purposes we will constrain ourselves to using the original values presented here. By analyzing the phase plan, we can get a better understanding of the equilibrium dynamics of this system\cite{ref:FitzHugh2, ref:MLbifurcations, ref:MLphaseportraits}.
+ 
+\section{Methods}
+\subsection{Discretization and Implementation}
+ 
+ 
+ To implement this model into a computer simulation, we must first find a scheme to discretize it. To do this, we will use Euler's Method\cite{ref:EulerMaruyama}. In general, if we are given a differential equation with an initial point, 
+
+\begin{equation}
+\dot{y} = f(y,t),~y(t_0) \\
+\end{equation}
+
+then if we choose a small change in our time to discretize by, $t_{n+1} - t_{n} = \delta t$, we can approximate the value of y at each discretized time step:
+
+\begin{equation}
+y_{n+1} \approx y_{n} + \Delta t f(y_{n},t_{n})
+\end{equation}
+
+this approximation works for small values of $\Delta t$. Using this approximation, we obtain the following approximations of $v$ and $w$,
+
+\begin{equation}
+v_{i+1}=v_i + c \Delta t \left(       v_i -\frac{v_i^3}{3} +w_i -I  \right)
+\end{equation}
+
+\begin{equation}
+w_{i+1} = w_i - \frac{\Delta t}{c \tau} \left(  v_i - a + b w_i        \right)
+\end{equation}
+
+Now, if we choose an initial point, $(v_0,w_0)$, we can now simulate $v$ and $w$ in time.
+
+
+%DO I WANT TO TALK ABOUT APPROXIMATION ERROR?????
+
+%We can also calculate the error in this approximation, which for the general case is $\frac{1}{2} \ddot{y}(t) (\delta t) ^2$.
+
+%APPROXIMATION ERROR?
+
+Strangely, the plots of $v(t)$ in our initial simulations did not seem to match with the graphs in the original FitzHugh paper\cite{ref:FitzHugh}, as shown in Figure 1. To answer why this seems to be the case, we will perform phase analysis to see where the discrepancy arises.
+
+Phase portraits are useful because they allow us to predict the behavior of the solutions of a set of differential equations. As part of the phase plane analysis, we must find the null clines and perform linear stability analysis to understand why we observe certain trajectories for different values of $I$. The null clines of a system of differential equations are defined as the lines on which different derivatives are equal to $0$\cite{ref:Strogatz}. Since we have a system of 2 equations, we will obtain two null clines. The null clines are solved most easily in terms of w.
+
+\begin{multline}
+\dot{v}=c \left(  v - \frac{v^3}{3} + w - I \right) =0 \\
+ \implies w_1=-(v-\frac{v^3}{3}-I)=\frac{v^3}{3}-v+I
+\end{multline}
+
+\begin{multline}
+\dot{w}= -\frac{1}{c \tau}(v-a+bw)=0\\
+ \implies w_2 = \frac{1}{b}(a-v)
+\end{multline}
+
+We obtain two null clines, a cubic equation of $v$, and a linear equation with slope $-\frac{1}{b}$ with intercept at $v=a$. Where these two lines intersect will be our fixed points, where $\dot{v}$ and $\dot{w}$ are both $=0$. These points will characterize the equilibrium behavior of our system. 
+
+\begin{equation}
+\frac{1}{b}(a-v) = \frac{v^3}{3}-v+I \implies \frac{v^3}{3} + \left( \frac{1}{b}-1     \right)  v + \left(   -\frac{a}{b}  +I \right) =0
+\end{equation}
+
+Based on our choice of parameters we will only have one fixed point. To find the stability of a fixed point, we must linearize the differential equation near the fixed point\cite{ref:Strogatz}. 
+
+For a system of two differential equations with a known fixed point $(x^*,y^*)$, 
+$$\dot{x} = f(x,y)$$
+$$\dot{y} = g(x,y) $$
+
+we let $u=x-x^*$ and $v=y-y^*$ be small disturbances from the equilibrium point. Now, to find whether the distance from the equilibrium point grows or shrinks over time, we can find the change in $u$ and $v$ over time.
+
+$$\dot{u} = \dot{x} = f(x^*+u,y^*+v)$$
+
+$$=f(x^*,y^*) + u \frac{\partial f}{\partial x} + v \frac{\partial f}{\partial y} + O(u^2,v^2,uv) $$
+
+$$\approx  u \frac{\partial f}{\partial x} + v \frac{\partial f}{\partial y} $$
+
+with the derivatives of $f$ evaluated at the fixed point. We find a similar answer for $\dot{v}$, and arrive at the solution,
+
+$$\left(
+\begin{matrix}
+ \dot{u} \\ \dot{v}
+ \end{matrix} 
+ \right)=
+ \left(
+\begin{matrix}
+\frac{\partial f}{\partial x} & \frac{f}{\partial y} \\[6pt]
+\frac{\partial g}{\partial x} & \frac{\partial g}{\partial y}
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+u \\
+v
+\end{matrix}
+\right)$$
+
+The matrix $J=\left( \begin{matrix}
+\frac{\partial f}{\partial x} & \frac{f}{\partial y} \\[6pt]
+\frac{\partial g}{\partial x} & \frac{\partial g}{\partial y}
+\end{matrix}
+\right)_{(x^*,y^*)}$ is the Jacobian. The eigenvalues of the Jacobian tell us what kind of equilibrium point the fixed point. For our specific set of differential equations, we have,
+
+\begin{equation}
+J=\left(
+\begin{matrix}
+c(1-v^2) & c \\[6pt]
+-\frac{1}{\tau c} & -\frac{b}{\tau c}
+\end{matrix}
+\right) 
+\end{equation}
+
+For our choice of parameters, we have a single fixed point. Let our fixed point be, $P=(v_0,w_0)$. The eigenvalues of the Jacobian are given by:
+
+$$|J-\lambda I|=
+\begin{vmatrix}
+c(1-v_0^2) - \lambda & c \\[6pt]
+-\frac{1}{\tau c} & -\frac{b}{\tau c} - \lambda
+\end{vmatrix}
+ $$
+ 
+ \begin{equation}
+ \implies \lambda^2 + \left( \frac{b}{\tau c} - c \left( 1-v_0^2 \right) \right) \lambda + \left(\frac{1}{\tau} - \frac{b}{\tau} \left(1-v_0^2 \right) \right)=0
+ \end{equation}
+
+\begin{figure*}
+	\begin{subfigure}[b]{\columnwidth}
+		\includegraphics[scale=0.55]{PhaseWithTraj2}
+		\caption{Phase diagram with trajectories plotted for $I=0$ and differing initial start positions.}
+	\end{subfigure}
+	\begin{subfigure}[b]{\columnwidth}
+	\includegraphics[scale=0.55]{TrajForPhase2}
+	\caption{Simulated plots of $v(t)$ for the trajectories shown on the phase plot.}
+	\end{subfigure}
+		\begin{subfigure}[b]{\columnwidth}
+		\includegraphics[width=\columnwidth]{FitzHughPhase}
+		\caption{Original phase plot for the FitzHugh-Nagumo model, taken directly from the paper\cite{ref:FitzHugh}. The resting point P is (1.20,-0.625)}
+	\end{subfigure}
+	\begin{subfigure}[b]{\columnwidth}
+	\includegraphics[width=\columnwidth]{FitzHughTraj}
+	\caption{Plots of $v(t)$ from the original FitzHugh paper\cite{ref:FitzHugh}. Note that the labelling for the variables is different, here $x(t)$ represents $v(t)$ and the $z$ parameter corresponds to $-I$.}
+	\end{subfigure}
+\caption{This figure shows the phase portraits for our model(a) with trajectories. The $v(t)$ plots of the trajectories in (a) are shown in (b). The phase portrait from the original FitzHugh paper is shown in (c), and simulated graphs of $v(t)$ from the same paper are shown in (d).}
+\end{figure*}
+
+From this equation, we can conclude that this is a stable equilibrium if:
+
+\begin{equation}
+1 - v_0^2 <\frac{b}{\tau c^2} ;~~~1-v_0^2 < \frac{1}{b}
+\end{equation}
+
+
+We have a free adjustable parameter of $I$, which affects the $v_0$ term. As a result, as long as the conditions in Equation 7 are satisfied, whether the system is stable or unstable is entirely dependent on $I$.
+
+Noise arises from a multitude of sources in any biological system\cite{ref:noise}, so adding noise to our model brings it closer to biological relevance. Our results for the noise could also be used to predict how a more complex model would respond to noise. We will demonstrate a method to incorporate independent noise in the $v(t)$ and $w(t)$ variables. Let $\xi$ and $\eta$ be random variables, then we can model noise in the FitzHugh-Nagumo model as,
+
+\begin{equation}
+\dot{v}=c \left(  v - \frac{v^3}{3} + w - I    \right) + k_1 \xi
+\end{equation}
+\begin{equation}
+\tau \dot{w}=\frac{1}{c}\left(v - a + bw \right) + k_2 \eta
+\end{equation}
+
+where $k_1$ and $k_2$ are constants meant to modulate the noise level. If we use our discretization scheme, with $v(t_i),~w(t_i) \implies v_i,~w_i$, then we can quantify our noise as,
+
+
+
+
+$$v_{i+1}-v_i = c \Delta t \left(       v_i -\frac{v_i^3}{3} +w_i -I  \right) + \xi_{i+1} - \xi_i$$.
+
+If $\xi$ represents Gaussian white noise, then the variable $\Delta \xi_i = \xi_{i+1} - \xi_i$ represents a Wiener process. Then, we can use the Euler-Maruyama method\cite{ref:EulerMaruyama} to obtain the following discretization scheme:
+
+\begin{equation}
+v_{i+1}=v_i + c\Delta t \left(       v_i -\frac{v_i^3}{3} +w_i -I   \right) +k_1 \sqrt{\Delta t} N[0,1]
+\end{equation}
+\begin{equation}
+w_{i+1} = w_i - \frac{\Delta t}{c \tau} \left(  v_i - a + b w_i        \right)  + k_2 \sqrt{\Delta t} N[0,1]
+\end{equation}
+
+Here, $N[0,1]$ is a normal distribution with mean $0$ and variance $1$. This gives a discretization scheme with noise we can now implement.
+
+\section{Results and Discussion}
+
+The first step of our analysis was creating a phase portrait. A phase portrait shows the trajectory of a specific simulation in the $v-w$ plane rather than a plot of either individual function over time. Figure 1a shows the complete phase plot for the simulated FitzHugh-Nagumo equations.  The vector field defined by the system, the two null clines, and the fixed point are all shown. The fixed point is a stable node, this represents a steady state solution at the resting voltage of the neuron. Figure 1b shows the $v(t)$ graphs for the trajectories shown on the phase portrait. The equilibrium point is located at $(v,w)\approx(1.2,-0.625)$, which means that for our model the resting voltage of the cell is a positive value. 
+
+When we plot the trajectories of the neurons in phase space we begin to see some patterns. Above the $w_2$ null cline, the trajectories are all moving from left to right, and below they are moving right to left. A single action potential is represented by the trajectory moving towards and along the left side of the $w_2$ null cline, going above it before the local maximum, then moving towards then along the right side of the null cline before coming to rest at the fixed point. If the neuron is in its resting state at the stable node, then an action potential would be triggered by a negative voltage displacement, causing the trajectory to be pulled towards the left side of the $w_2$ line and trigger an action potential. This is again an incongruity because real neurons have a negative resting voltage, and need a positive voltage change to trigger an action potential\cite{ref:TheoreticalNeuroscience}. This issue is evident in the plots for $v(t)$ for $I=0$ in Figure 1b, where instead of a spike upwards followed by a recurrence period, we have large spike downwards followed by a spike upwards. It seems that when we use the original FitzHugh-Nagumo equations, rather than finding the values for $v(t)$, we are instead finding $-v(t)$. However, the phase diagram we obtain is identical and the simulated $v(t)$ graphs agree with the trajectories on the phase diagram. Based on the phase diagram, the voltage should have a large downward spike because it is attracted to the left side of the $w_2$ null cline, then increase when it goes to the right side, then slowly go back to equilibrium at $v_0=1.2$. The fixed point is also at the same location as in the original paper\cite{ref:FitzHugh}, which means that the results in that paper should show a stable resting voltage of $1.2$. This can be seen in Figure 2c. It appears that the results in FitzHugh's original paper are contradictory, as the voltage graph disagrees with the phase diagram. The voltage plots shown in Figure 2d are more biologically realistic, but it would require a different set of differential equations to generate them.
+
+\begin{figure}
+\includegraphics[scale=0.5]{ReplicatingFitzHugh1fix}
+	\caption{Simulated plots of $-v(t)$ with current values $I=0$ (above) and $I=0.4$ (below).}
+\end{figure}
+
+Figure 2 is an attempt to recreate the plots shown in Figure 1d. As we can see, plotting $-v(t)$ yields the desired graph. It is difficult to reproduce the figures exactly because the initial points are not specified in the original paper. However, if this is our desired result for $v(t)$ then this corresponds to the solution of a different set of equations than those originally specified \cite{ref:FitzHugh}. To arrive at these different equations, we must do a change of variables, $v \rightarrow -\tilde{v},~w \rightarrow \tilde{w}$. This just means that we must replace every instance of $v$ in our original equations with $(-\tilde{v})$.
+
+\begin{multline}
+\frac{d(-\tilde{v})}{dt}=-\frac{d\tilde{v}}{dt}=c \left(  -(-\tilde{v}) + \frac{(-\tilde{v})^3}{3} + \tilde{w} - I    \right)  \\
+\implies -\frac{d\tilde{v}}{dt} = c \left(  \tilde{v} - \frac{\tilde{v}^3}{3} + \tilde{w} - I    \right) \\
+\implies \frac{d\tilde{v}}{dt} = c \left(  -\tilde{v} + \frac{\tilde{v}^3}{3} - \tilde{w} + I    \right)
+\end{multline}
+\begin{multline}
+\tau \frac{d\tilde{w}}{dt}=-\frac{1}{c}\left(-(-\tilde{v}) - a + b\tilde{w} \right) = \frac{1}{c}\left(\tilde{v} + a - b\tilde{w} \right) \\
+\implies \frac{d\tilde{w}}{dt}= \frac{1}{\tau c}\left(\tilde{v} + a - b\tilde{w} \right)
+\end{multline}
+
+These equations yield a modified version of the original FitzHugh-Nagumo model that gives a more biologically realistic plot of $v(t)$. These equations also have different null clines and a different iteration scheme, solved for using the methods shown above.
+
+\begin{equation}
+\tilde{w}_1 = -\tilde{v} + \frac{\tilde{v}^3}{3}+I
+\end{equation}
+\begin{equation}
+\tilde{w}_2 = \frac{1}{b} (\tilde{v}+a)
+\end{equation}
+
+\begin{equation}
+\tilde{v}_{i+1}=\tilde{v}_i + c \Delta t \left(       \tilde{v}_i -\frac{\tilde{v}_i^3}{3} -\tilde{w}_i +I  \right)
+\end{equation}
+
+\begin{equation}
+\tilde{w}_{i+1} = \tilde{w}_i + \frac{\Delta t}{c \tau} \left(  \tilde{v}_i + a - b \tilde{w}_i        \right)
+\end{equation}
+
+	\begin{figure}
+		\includegraphics[scale=0.5]{ModifiedBlankPhase2}
+		\caption{Phase plot using $\tilde{v}$ and $\tilde{w}$.}
+	\end{figure}
+
+\begin{figure}
+	\begin{subfigure}[b]{\columnwidth}
+		\includegraphics[scale=0.5]{FixedDiffCurrents2}
+		\caption{Plots of $v(t)$ and $w(t)$ with modified equations and different currents.}
+	\end{subfigure}
+		\begin{subfigure}[b]{\columnwidth}
+		\includegraphics[scale=0.5]{fixedDiffCurrentPhase2}
+		\caption{Phase plots for the above results.}
+	\end{subfigure}
+\caption{Results for modified model for different $I$ values.}
+\end{figure}
+	
+Figure 3 shows the phase plot generated by these equations. The neurons have the same initial positions as in Figure 1a. The stable equilibrium point is now at $(-1.20,-0.625)$, and simulations using these new equations yields the desired plots of  $\tilde{v}(t)=-v(t)$.
+
+  \begin{figure*}[!t]
+  \begin{tabular}[b]{cc}
+      \begin{subfigure}[b]{\columnwidth}
+        \includegraphics[scale=0.5]{bifurcationFixed2}
+        \caption{Diagram of the stability of the fixed point as a function of the current $I$, with fixed point at $v$.}
+        \label{fig:bifurcation}
+      \end{subfigure}
+      &
+      \begin{tabular}[b]{c}    
+      \begin{subfigure}[b]{\columnwidth}
+        \includegraphics[scale=0.5]{fringevoltages2}
+        \caption{Plots of $v(t)$ for $I$ values corresponding to unusual behavior.}
+        \label{fig:bifurcationvoltages}
+      \end{subfigure}\\
+    \begin{subfigure}[b]{\columnwidth}
+      \includegraphics[scale=0.5]{fringephases2}
+      \caption{Phase portraits for $I$ values corresponding to unusual behavior.}
+      \label{fig:bifurcationphases}
+    \end{subfigure}
+        \end{tabular}
+  \end{tabular}
+  \label{fig:Stability}
+  \caption{Analysis of the stability of the FitzHugh-Nagumo Model.}
+\end{figure*}
+
+
+Now that we have arrived at the set of equations that yield a more realistic result for $v(t)$, we will look at results for different $I$ values and analyze how these equations behave in the phase plane. Figure 4 shows the plots for $v(t)$ and $w(t)$ for the modified model. For $I=0.25$, there is one action potential but this is the result of the initial voltage given. The phase plot shows that  the initial condition provided was displaced enough from equilibrium to trigger a single action potential before fluctuating around the stable fixed point. One of the unphysical aspects of the FitzHugh-Nagumo model that it shares with the Hodgkin-Huxley model is the absence of all or nothing spiking, and this behavior can be seen here\cite{ref:AllorNone}. Another aspect of the phase plot is that the voltage of the fixed point is greater than the resting voltage for $I=0$. This represents the current slightly polarizing the cell, but not triggering an action potential. For $I=0.5$ and $I=0.75$, the current is large enough so that the neuron will fire indefinitely with constant rate. The firing rate is slightly faster for $I=0.75$. The phase diagrams associated with these three current values are shown in Figure 5. For $I=0.25$, the fixed point is a stable focus. This means that, while the trajectory never reaches the fixed point, it will maintain an orbit in a small vicinity around it. This means that the small oscillations in the $v(t)$ graph continue forever with increasingly smaller magnitude, but never stop. This graph also suggests that the initial position of $(0,0)$ was enough of a change in the voltage to trigger an action potential, but the neuron has a stable equilibrium. For the graphs of $I=0.5$ and $I=0.75$, the fixed point is an unstable node, so regardless of the initial point given, the neuron will fire indefinitely. Another pattern that we can see among these is how the null clines change with different current values. The first null cline moves steadily upwards while the second stays fixed in place, since only the first depends on the value of $I$. This also moves the fixed point towards larger $v$ values and $w$ values. The Jacobian for our system only depends on the value of $v$. So it seems as though it is this process is what causes the change from stable to unstable. 
+        
+
+    
+
+
+To observe the change in stability as a function of $I$, we plotted a bifurcation diagram for the current in Figure 5a. At $I=0$, the equilibrium is stable, as we found previously.  We would expect the equilibrium to also be stable for a negative value of $I$, since it would hyperpolarize the membrane\cite{ref:TheoreticalNeuroscience}. This is what we observe in the bifurcation diagram in Figure 5a. As the current increases, the equilibrium goes from stable node to stable focus. For these values of $I$, the point is stable enough that the trajectories are attracted towards the fixed point, but it will orbit in a vicinity around it as in Figure 4. This is not biologically accurate, as action potentials are typically considered to be all or nothing, but this is also a feature of the Hodgkin-Huxley model\cite{ref:AllorNone}. Then the point transitions into an unstable focus, and then an unstable node, both corresponding to neurons constantly firing. What was not expected was that this trend would reverse, going back from unstable node, to unstable focus, to stable focus and back to stable node. This could be that for large current values the model no longer gives reliable results, but we need to directly examine what the phase plots look like for these higher current values. The results for these fringe cases are shown in Figure 5b and 5c. When we look at the phase diagrams, it becomes apparent why this is the case. We have 2 different null clines, 
+
+
+$$w_1 = -v + \frac{v^3}{3}+I$$
+
+
+$$w_2 = \frac{1}{b} (v+a)$$
+
+
+Changing $I$ shifts the cubic null cine up and down, which causes the fixed point to shift left and right along the $v-w$ plane. After the fixed point shifts past the $v$ value for the line about which $w_1$ is symmetric, the entire system inverts itself. This can be seen in the plots of $v(t)$. They look like graphs of $-v(t)$ for lower current values. For $I>1.5$, these solutions are no longer physically meaningful. However it is also the case that real neurons do not fire for any arbitrarily high current\cite{ref:TheoreticalNeuroscience}. If you apply too much current the cell will die, so this is not entirely unrealistic.
+
+
+%\begin{figure}
+%	\begin{subfigure}[b]{\columnwidth}
+%		\includegraphics[scale=0.5]{fringevoltages3}
+%		\caption{Plots of $v(t)$ and $w(t)$ with modified equations and different currents.}
+%	\end{subfigure}
+%		\begin{subfigure}[b]{\columnwidth}
+%		\includegraphics[scale=0.5]{fringephases3}
+%		\caption{Phase plots for the above results.}
+%	\end{subfigure}
+%\caption{Results for modified model for different $I$ values.}
+%\end{figure}
+
+The final section of this paper will concern the addition of noise to the FitzHugh-Nagumo model. Our formulation for the important aspects of the phase portrait, such as the location of the fixed point, the null clines, and the stability of the fixed point does not change based on the noise levels. However, it is obvious that the level of noise will have an impact on the differential equations, so our notion of what a stable node means in this context is ambiguous. For example, for very large noise levels, the neuron may fire even if we have $I=0$ and start at the stable node. So in this instance, the fixed point fails to accurately characterize the behavior of the system. However, there should be some range of values of $k_1$ and $k_2$ such that our system is able to model the behavior of neurons with small amounts of noise. We can then consider the noise to be small deviations from the idealized path for the neuron. 
+Using our discretization scheme, we were able to implement noise into the equations and our results are shown in Figures 6 and 7. To simplify our analysis, we have set $k_1=k_2=k$. As we can see, the signals do appear noisy, and this effect increases with the magnitude of $k$. 
+
+As expected, increasing the noise level increases the error in the graphs. As we can see in Figure 6, increasing the $k$ value causes the plots of $v(t)$ to look increasingly noisy. As a result, the peaks of the action potentials broaden, and the trajectory in the phase plot is very unstable. To quantify the effect of noise on the model, we examined the rate of misfire of neurons for $I=0$ starting at the stable fixed point. The results are shown in Figure 7. For each noise level, we ran simulations for $1000$ seconds and ran $10$ iterations, then averaged the number of misfires for each noise level. We then found how many spikes on average we observed per $t=100$ increments. As we expect, as the noise increases, the neuron misfires at a higher rate. The rate of misfires increases roughly logarithmically before beginning to plateau around $2.6$ misfires. For noise levels above $k=0.075$, we found that on average the neuron fires at least once per time increment. The stability of the equilibrium position has been fundamentally altered by the addition of noise. For $k=0.5$ there are on average $2.72$ misfires. Considering that in this timespan, an applied current of $0.5$ would result in 3 spikes, the system could no longer be considered stable, the system is now primarily dominated by the noise. As a result, if we were primarily interested in the behavior of the sets of equations with slight noise as a result of a multitude of biological factors\cite{ref:noise}, we would need the noise level in the $0$ to $0.075$ range. If we were interested in signals driven primarily by intrinsic noise within the cell, levels higher than that could be looked into.
+
+
+
+
+
+\begin{figure}
+\includegraphics[width=\columnwidth]{noisyresults}
+\caption{Plots of $v(t)$(above) and phase plots(below) for different $k$ values and $I=0.5$.}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{minipage}[b]{0.25\columnwidth}
+\centering
+\includegraphics[scale=0.5]{misfirevfixed}
+\label{fig:figure1}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.6\columnwidth}
+\centering
+\includegraphics[scale=0.5]{misfiresvert}
+\label{fig:figure2}
+\end{minipage}
+\caption{Plots of $v(t)$ starting at the fixed point with $I=0$ and increasing noise levels(left). Plot of average number of misfires over $t=100$ time period as a function of noise level(right).}
+\end{figure}
+
+
+
+\section{Conclusions}
+
+We were able to implement the FitzHugh-Nagumo model into Python using the Euler Method of discretization. Using this scheme, our results for $v(t)$ disagreed with those in the original FitzHugh paper. We found that instead of finding $v(t)$, we were instead getting $-v(t)$ from the equations given. However when we plotted the trajectories of $v(t)$ in phase space, we found that our $v(t)$ graphs agree with the phase plot in the original paper, while the results for $v(t)$ shown in that paper do not. This suggests a fundamental inconsistency in the results show in that paper. We then derived a modified version of the FitzHugh-Nagumo equations for $\dot{v}$ and $\dot{w}$ that gives the desired result for $v(t)$, and created a phase portrait of this new set of equations. The equilibrium behavior of this model was also examined in a bifurcation diagram. As the current increases, the fixed point moves from left to right along the cubic null cline. After the fixed point passes over the symmetry axis of the cubic null cline, the system begins to invert itself. This results in the behavior of the system becoming  a reflected version of lower current value results, leading to an unphysical result. Finally, we added noise to the model to see how the results would be affected. As expected, the peaks for $v(t)$ became less distinct as the noise level increased. To quantify the effect of noise, we found the rate of misfiring for $I=0$. We found that for values of $k>0.075$ neurons would regularly misfire. This places a limit on how much noise the model could tolerate before being primarily driven by the noise.
+
+
+
+
+
+\clearpage
+
+\begin{thebibliography}{dw99}
+
+\bibitem{ref:TheoreticalNeuroscience} Dayan P. and Abbott L. F. 2001. Theoretical Neuroscience: Computational and Mathematical Modeling of Neural Systems. The MIT Press. %THIS IS A TEXTBOOK
+
+\bibitem{ref:FitzHugh2} FitzHugh R. 1955. Mathematical Models of Excitation and Propagation in Nerve. Bulletin of Mathematical Biophysics, 17:257-278.
+
+\bibitem{ref:FitzHugh} FitzHugh R. 1961. Impulses and Physiological States in Theoretical Models of Nerve Membrane. Biophysical Journal; 1(6), 445-466.
+
+\bibitem{ref:HHthermo} Forrest M. 2014. Can the Thermodynamic Hodgkin-Huxley Model of Voltage-Dependent Conductance Extrapolate for Temperature. Computation 2:47-60.
+
+
+\bibitem{ref:HHoriginal} Hodgkin A. L. and Huxley, A. F. 1952. A Quantitative Description of Membrane Current and Its Application to Conduction and Excitation in Nerve. J Physiol.; 117(4): 500-544. 
+
+\bibitem{ref:noise} Huk A. and Hart E. 2019. Parsing signal and noise in the brain. Science; 364(6437) 236-237.
+
+\bibitem{ref:BrainAndMind} Kandel E. and Squire L. 2000. Breaking down Scientific Barriers to the Study of Brain and Mind. Science, New Series. 290(5494):113-1120.
+
+\bibitem{ref:Nagumo} Nagumo J. Arimoto S. and Yoshizawa S. 1962. An Active Pulse Transmission Line Simulating Nerve Axon. Proceedings of the IRE. 50(10):2061-2070.
+
+\bibitem{ref:HHstanding} Naundorf B., Wolf F. and Volgushev M. 2007. Hodgkin and Huxley model - still standing? Nature 445(E1-E2)
+
+\bibitem{ref:FluidDynamics} Pakdaman K., Thieullen M. and Wainrib G. 2009. Fluid limit theorems for stochastic hybrid systems with application to neural models. Advances in Applied Probability 42(3).
+
+\bibitem{ref:MLphaseportraits} Raesi B. 2012. Classication of Global Phase Portraits of Morris-Lecar Model for Spiking Neuron. Advanced Studies in Biology, 4(4):175-194
+
+
+\bibitem{ref:Strogatz} Strogatz S. 2015. Nonlinear Dynamics and Chaos With Applications to Physics, Biology and Engineering. Westview Press. %THIS IS A TEXTBOOK
+
+\bibitem{ref:MLbifurcations} Tsumoto K., Kitajima H., Yoshinaga T., Aihara K. and Kawakami H. 2006. Bifurcations in Morris-Lecar neuron model. Neurocomputing 69:293-316.
+
+\bibitem{ref:EulerMaruyama} Xuerong M. 2015. The truncated Euler-Maruyama method for stochastic differential equations. Journal of Computational and Applied Mathematics 290:370-384.
+
+\bibitem{ref:AllorNone} Zadeh S. A. and Kambhampati C. 2017. All-or-None Principle and Weakness of Hodgkin-Huxley Mathematical Model. International Journal of Mathematical and Computational Sciences; 11(11).
+
+%This is how you include bib items
+%\bibitem{ref:p1} L. Aitkin, D. Anderson and J. Brugge. 1970. Tonotopic organization and discharge charac- teristics of single neurons in nuclei of the lateral lemniscus of the cat. J Neurophysiol., 33, 421-40.
+
+
+\end{thebibliography}
+
+
+\end{document}
